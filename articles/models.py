@@ -35,8 +35,7 @@ class ArticlePage(Page):
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
     tags = ClusterTaggableManager(through=ArticlePageTag, blank=True)
-    categories = models.ManyToManyField('article.ArticleCategory', blank=True)
-    # categories = ParentalManyToManyField('article.ArticleCategory', blank=True)
+    categories = ParentalManyToManyField('article.ArticleCategory', blank=True)
 
 
     def main_image(self):
