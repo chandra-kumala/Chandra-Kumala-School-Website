@@ -1,6 +1,7 @@
+from django import forms
 from django.db import models
 
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
@@ -9,6 +10,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
+from wagtail.snippets.models import register_snippet
 
 
 class ArticleIndexPage(Page):
@@ -33,6 +35,8 @@ class ArticlePage(Page):
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
     tags = ClusterTaggableManager(through=ArticlePageTag, blank=True)
+    categories = models.ManyToManyField('article.ArticleCategory', blank=True)
+    # categories = ParentalManyToManyField('article.ArticleCategory', blank=True)
 
 
     def main_image(self):
@@ -51,6 +55,7 @@ class ArticlePage(Page):
         MultiFieldPanel([
             FieldPanel('date'),
             FieldPanel('tags'),
+            FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
         ], heading="Article information"),
         FieldPanel('intro'),
         FieldPanel('body'),
@@ -81,3 +86,25 @@ class ArticleTagIndexPage(Page):
         context = super().get_context(request)
         context['articlepages'] = articlepages
         return context
+
+@register_snippet
+class ArticleCategory(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True, max_length=80)
+    icon = models.ForeignKey(
+        'wagtailimages.Image', null=True, blank=True,
+        on_delete=models.SET_NULL, related_name='+'
+    )
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('slug'),
+        ImageChooserPanel('icon'),
+    ]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        # verbose_name = "Article Category"
+        verbose_name_plural = "article categories"
