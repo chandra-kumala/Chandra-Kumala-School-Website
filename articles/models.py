@@ -93,7 +93,6 @@ class ArticleTagIndexPage(Page):
 @register_snippet
 class ArticleCategory(models.Model):
     name = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True, max_length=80)
     icon = models.ForeignKey(
         'wagtailimages.Image', null=True, blank=True,
         on_delete=models.SET_NULL, related_name='+'
@@ -101,7 +100,7 @@ class ArticleCategory(models.Model):
 
     panels = [
         FieldPanel('name'),
-        FieldPanel('slug'),
+        # FieldPanel('slug'),
         ImageChooserPanel('icon'),
     ]
 
