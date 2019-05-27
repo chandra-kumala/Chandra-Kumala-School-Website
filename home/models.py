@@ -10,12 +10,12 @@ class HomePage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('body', classname="full"),
-        InlinePanel('related_links', label="Related links"),
+        InlinePanel('carousel_images', label="Carousel images"),
     ]
 
 
 class HomePageRelatedLink(Orderable):
-    page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='related_links')
+    page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='carousel_images')
     image = models.ForeignKey('wagtailimages.Image',  null=True, blank=True, on_delete=models.CASCADE, related_name='+')
     caption = models.CharField(blank=True, max_length=250)
 
