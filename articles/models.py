@@ -23,6 +23,10 @@ class ArticleIndexPage(Page):
         context['articlepages'] = articlepages
         return context
 
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full")
+    ]
+
 class ArticlePageTag(TaggedItemBase):
     content_object = ParentalKey(
         'ArticlePage',
@@ -35,7 +39,7 @@ class ArticlePage(Page):
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
     tags = ClusterTaggableManager(through=ArticlePageTag, blank=True)
-    categories = ParentalManyToManyField('article.ArticleCategory', blank=True)
+    # categories = ParentalManyToManyField('article.ArticleCategory', blank=True)
 
 
     def main_image(self):
@@ -54,7 +58,7 @@ class ArticlePage(Page):
         MultiFieldPanel([
             FieldPanel('date'),
             FieldPanel('tags'),
-            FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
+            # FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
         ], heading="Article information"),
         FieldPanel('intro'),
         FieldPanel('body'),
