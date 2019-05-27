@@ -39,7 +39,7 @@ class ArticlePage(Page):
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
     tags = ClusterTaggableManager(through=ArticlePageTag, blank=True)
-    # categories = ParentalManyToManyField('article.ArticleCategory', blank=True)
+    categories = ParentalManyToManyField('articles.ArticleCategory', blank=True)
 
 
     def main_image(self):
@@ -58,7 +58,7 @@ class ArticlePage(Page):
         MultiFieldPanel([
             FieldPanel('date'),
             FieldPanel('tags'),
-            # FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
+            FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
         ], heading="Article information"),
         FieldPanel('intro'),
         FieldPanel('body'),
