@@ -28,7 +28,8 @@
 
     <body class="container {% block body_class %}{% endblock %}">
         <h1>Website Heading</h1>
-        <a href="{% slugurl 'articles' %}">Articles index</a>
+        <a href="{% slugurl 'home' %}">Home</a>
+        <a href="{% slugurl 'articles' %}">Articles</a>
         {% wagtailuserbar %}
 
         {% block content %}{% endblock %}
