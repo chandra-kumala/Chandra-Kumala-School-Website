@@ -33,7 +33,7 @@
 
             {% for item in page.carousel_images.all %}
             <div class="carousel-item {% if forloop.first %} active {% endif %}">
-                {% image item.image fill-1920x1080 class="d-block w-100" alt="..." %}
+                {% image item.image fill-1080x600 class="d-block" alt="..." %}
                 <div class="carousel-caption d-none d-md-block">
                     <h5>{{ item.caption }}</h5>
                     <p>{{ item.caption }}</p>
