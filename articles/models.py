@@ -13,32 +13,32 @@ from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
 
-class ArticleIndexPage(Page):
+class Index(Page):
     intro = RichTextField(blank=True)
 
     def get_context(self, request):
         # Update context to include only published posts, ordered by reverse-chron
         context = super().get_context(request)
-        articlepages = self.get_children().live().order_by('-first_published_at')
-        context['articlepages'] = articlepages
+        articles = self.get_children().live().order_by('-first_published_at')
+        context['articles'] = articles
         return context
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full")
     ]
 
-class ArticlePageTag(TaggedItemBase):
+class ArticleTag(TaggedItemBase):
     content_object = ParentalKey(
-        'ArticlePage',
+        'Article',
         related_name='tagged_items',
         on_delete=models.CASCADE
     )
 
-class ArticlePage(Page):
+class Article(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
-    tags = ClusterTaggableManager(through=ArticlePageTag, blank=True)
+    tags = ClusterTaggableManager(through=ArticleTag, blank=True)
     categories = ParentalManyToManyField('articles.ArticleCategory', blank=True)
 
 
@@ -65,8 +65,8 @@ class ArticlePage(Page):
         InlinePanel('gallery_images', label="Gallery images"),
     ]
 
-class ArticlePageGalleryImage(Orderable):
-    page = ParentalKey(ArticlePage, on_delete=models.CASCADE, related_name='gallery_images')
+class ArticleGalleryImage(Orderable):
+    page = ParentalKey(Article, on_delete=models.CASCADE, related_name='gallery_images')
     image = models.ForeignKey(
         'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
     )
@@ -77,17 +77,17 @@ class ArticlePageGalleryImage(Orderable):
         FieldPanel('caption'),
     ]
 
-class ArticleTagIndexPage(Page):
+class ArticleTagIndex(Page):
 
     def get_context(self, request):
 
         # Filter by tag
         tag = request.GET.get('tag')
-        articlepages = ArticlePage.objects.filter(tags__name=tag)
+        articles = Article.objects.filter(tags__name=tag)
 
         # Update template context
         context = super().get_context(request)
-        context['articlepages'] = articlepages
+        context['articles'] = articles
         return context
 
 @register_snippet
