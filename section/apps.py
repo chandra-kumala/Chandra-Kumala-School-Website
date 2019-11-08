@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class itemsConfig(AppConfig):
+class IndexConfig(AppConfig):
     name = 'section'
