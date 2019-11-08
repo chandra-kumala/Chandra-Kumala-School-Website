@@ -30,19 +30,19 @@ class Index(Page):
         FieldPanel('intro', classname="full")
     ]
 
-class itemTag(TaggedItemBase):
+class ItemTag(TaggedItemBase):
     content_object = ParentalKey(
-        'item',
+        'Item',
         related_name='tagged_items',
         on_delete=models.CASCADE
     )
 
-class item(Page):
+class Item(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
-    tags = ClusterTaggableManager(through=itemTag, blank=True)
-    categories = ParentalManyToManyField('items.itemCategory', blank=True)
+    tags = ClusterTaggableManager(through=ItemTag, blank=True)
+    categories = ParentalManyToManyField('items.ItemCategory', blank=True)
 
 
     def main_image(self):
@@ -62,14 +62,14 @@ class item(Page):
             FieldPanel('date'),
             FieldPanel('tags'),
             FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
-        ], heading="item information"),
+        ], heading="Post information"),
         FieldPanel('intro'),
         FieldPanel('body'),
         InlinePanel('gallery_images', label="Gallery images"),
     ]
 
-class itemGalleryImage(Orderable):
-    page = ParentalKey(item, on_delete=models.CASCADE, related_name='gallery_images')
+class ItemGalleryImage(Orderable):
+    page = ParentalKey(Item, on_delete=models.CASCADE, related_name='gallery_images')
     image = models.ForeignKey(
         'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
     )
@@ -80,13 +80,13 @@ class itemGalleryImage(Orderable):
         FieldPanel('caption'),
     ]
 
-class itemTagIndex(Page):
+class ItemTagIndex(Page):
 
     def get_context(self, request):
 
         # Filter by tag
         tag = request.GET.get('tag')
-        items = item.objects.filter(tags__name=tag)
+        items = Item.objects.filter(tags__name=tag)
 
         # Update template context
         context = super().get_context(request)
@@ -94,7 +94,7 @@ class itemTagIndex(Page):
         return context
 
 @register_snippet
-class itemCategory(models.Model):
+class ItemCategory(models.Model):
     name = models.CharField(max_length=255)
     icon = models.ForeignKey(
         'wagtailimages.Image', null=True, blank=True,
@@ -111,72 +111,72 @@ class itemCategory(models.Model):
         return self.name
 
     class Meta:
-        # verbose_name = "item Category"
-        verbose_name_plural = "item categories"
+        # verbose_name = "Post Category"
+        verbose_name_plural = "post categories"
 
 
 
-class Dreamer(models.Model):
-    ''' Add DOUBLE streamer field to a page. '''
-    body = StreamField([
-        ('heading', blocks.CharBlock(classname="full title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('embed', EmbedBlock()),
-    ], null=True, blank=True,)
+# class Dreamer(models.Model):
+#     ''' Add DOUBLE streamer field to a page. '''
+#     body = StreamField([
+#         ('heading', blocks.CharBlock(classname="full title")),
+#         ('paragraph', blocks.RichTextBlock()),
+#         ('image', ImageChooserBlock()),
+#         ('embed', EmbedBlock()),
+#     ], null=True, blank=True,)
     
-    end = StreamField([
-        ('heading', blocks.CharBlock(classname="full title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('embed', EmbedBlock()),
-    ], null=True, blank=True,)
+#     end = StreamField([
+#         ('heading', blocks.CharBlock(classname="full title")),
+#         ('paragraph', blocks.RichTextBlock()),
+#         ('image', ImageChooserBlock()),
+#         ('embed', EmbedBlock()),
+#     ], null=True, blank=True,)
 
-    panels = [
-        StreamFieldPanel('body'),
-        StreamFieldPanel('end'),
-    ]
+#     panels = [
+#         StreamFieldPanel('body'),
+#         StreamFieldPanel('end'),
+#     ]
     
-    class Meta:
-        """Abstract Model."""
+#     class Meta:
+#         """Abstract Model."""
 
-        abstract = True
+#         abstract = True
 
-class Streamer(models.Model):
-    ''' Add SINGLE streamer field to a page. '''
-    body = StreamField([
-        ('heading', blocks.CharBlock(classname="full title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('embed', EmbedBlock()),
-    ], null=True, blank=True,)
+# class Streamer(models.Model):
+#     ''' Add SINGLE streamer field to a page. '''
+#     body = StreamField([
+#         ('heading', blocks.CharBlock(classname="full title")),
+#         ('paragraph', blocks.RichTextBlock()),
+#         ('image', ImageChooserBlock()),
+#         ('embed', EmbedBlock()),
+#     ], null=True, blank=True,)
 
-    panels = [
-        StreamFieldPanel('body'),
-    ]
+#     panels = [
+#         StreamFieldPanel('body'),
+#     ]
     
-    class Meta:
-        """Abstract Model."""
+#     class Meta:
+#         """Abstract Model."""
 
-        abstract = True
+#         abstract = True
 
-class Seo(models.Model):
-    ''' Add extra seo fields to pages such as icons. '''
-    seo_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        # default='media/images/default.png',
-        on_delete=models.SET_NULL,
-        related_name='+',
-        help_text="Optional social media image 300x300px image < 300kb."
-    )
+# class Seo(models.Model):
+#     ''' Add extra seo fields to pages such as icons. '''
+#     seo_image = models.ForeignKey(
+#         'wagtailimages.Image',
+#         null=True,
+#         blank=True,
+#         # default='media/images/default.png',
+#         on_delete=models.SET_NULL,
+#         related_name='+',
+#         help_text="Optional social media image 300x300px image < 300kb."
+#     )
 
-    panels = [
-        ImageChooserPanel('seo_image'),
-    ]
+#     panels = [
+#         ImageChooserPanel('seo_image'),
+#     ]
     
-    class Meta:
-        """Abstract Model."""
+#     class Meta:
+#         """Abstract Model."""
 
-        abstract = True
+#         abstract = True
