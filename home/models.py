@@ -7,6 +7,23 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPane
 from wagtail.images.blocks import ImageChooserBlock 
 from wagtail.images.edit_handlers import ImageChooserPanel
 
+from section.models import Streamer, Seo
+
+
+class GeneralPage(Page, Streamer, Seo):
+    parent_page_types = ['home.HomePage']
+    subpage_types = ['items.Index']
+
+
+    content_panels = Page.content_panels + Streamer.panels
+     
+    promote_panels = Page.promote_panels + Seo.panels
+
+
+    class Meta:
+        verbose_name = "Home Page"
+        verbose_name_plural = "Home Pages"
+
 class HomePage(Page):
     intro = RichTextField(blank=True)
     body = StreamField([
