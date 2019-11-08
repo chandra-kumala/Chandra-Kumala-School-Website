@@ -25,6 +25,8 @@ class GeneralPage(Page, Streamer, Seo):
         verbose_name_plural = "Home Pages"
 
 class HomePage(Page):
+    parent_page_types = ['wagtailcore.page']
+
     intro = RichTextField(blank=True)
     body = StreamField([
         ('heading', blocks.CharBlock(classname="full title")),
