@@ -1,8 +1,7 @@
 # CKS
 media/
 home/migrations
-articles/migrations
-
+cks/
 
 # Wagtail
 *.swp
