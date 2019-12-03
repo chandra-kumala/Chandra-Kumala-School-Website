@@ -7,7 +7,7 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPane
 from wagtail.images.blocks import ImageChooserBlock 
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from section.models import Streamer, Seo
+from tools.models import Streamer, Seo
 
 
 class GeneralPage(Page, Streamer, Seo):
