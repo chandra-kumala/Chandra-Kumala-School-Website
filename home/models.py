@@ -20,7 +20,7 @@ class HomePage(Page, Dreamer, Seo):
 
 
     parent_page_types = ['wagtailcore.page', 'home.HomePage']
-    subpage_types = ['tools.Index', 'home.HomePage']
+    subpage_types = ['tools.Index', 'tools.GoogleMaps', 'tools.GoogleCalendar', 'home.HomePage']
 
 
     content_panels = Page.content_panels + Dreamer.panels + [
