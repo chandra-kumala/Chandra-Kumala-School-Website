@@ -15,9 +15,11 @@ class HomePage(Page, Dreamer, Seo):
 
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)
-        context['day_of_month'] = dom
-        return context
+        context['menuitems'] = request.site.root_page.get_descendants(inclusive=True).live().in_menu()
+        # context['menuitems'] = self.get_children().filter(live=True, show_in_menus=True)
 
+
+        return context
 
     parent_page_types = ['wagtailcore.page', 'home.HomePage']
     subpage_types = ['tools.Index', 'tools.GoogleMaps', 'tools.GoogleCalendar', 'home.HomePage']
