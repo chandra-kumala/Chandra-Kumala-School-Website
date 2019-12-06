@@ -1,8 +1,10 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.core.models import Page, Orderable
-from wagtail.admin.edit_handlers import InlinePanel, FieldPanel
+from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, StreamFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.core.fields import StreamField
+
 
 from tools.models import Dreamer, Seo
 
@@ -24,9 +26,10 @@ class HomePage(Page, Dreamer, Seo):
     parent_page_types = ['wagtailcore.page', 'home.HomePage']
     subpage_types = ['tools.Index', 'tools.GoogleMaps', 'tools.GoogleCalendar', 'home.HomePage']
 
-
-    content_panels = Page.content_panels + Dreamer.panels + [
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
         InlinePanel('carousel_items', label="Carousel images"),
+        StreamFieldPanel('end'),
     ] 
      
     promote_panels = Page.promote_panels + Seo.panels
