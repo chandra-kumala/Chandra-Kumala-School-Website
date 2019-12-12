@@ -1,6 +1,8 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.core.models import Page, Orderable
+from wagtail.core.fields import RichTextField
+from wagtail.core.blocks import TextBlock, StructBlock
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, StreamFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import StreamField
@@ -8,6 +10,10 @@ from tools.models import Dreamer, Seo
 
 
 class HomePage(Page, Dreamer, Seo):
+    heading = models.CharField(max_length=250, null=True, blank=True)
+    text = RichTextField(blank=True)
+    buttonLabel = models.CharField(max_length=255, null=True, blank=True)
+    buttonUrl = models.URLField(null=True, blank=True)
 
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)
@@ -21,6 +27,10 @@ class HomePage(Page, Dreamer, Seo):
                      'tools.GoogleCalendar', 'home.HomePage']
 
     content_panels = Page.content_panels + [
+        FieldPanel('heading'),
+        FieldPanel('text'),
+        FieldPanel('buttonLabel'),
+        FieldPanel('buttonUrl'),
         StreamFieldPanel('body'),
         InlinePanel('carousel_items', label="Carousel images"),
         StreamFieldPanel('end'),
