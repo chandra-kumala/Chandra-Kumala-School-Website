@@ -3,7 +3,7 @@ from modelcluster.fields import ParentalKey
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
 from wagtail.core.blocks import TextBlock, StructBlock
-from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, StreamFieldPanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import StreamField
 from tools.models import Dreamer, Seo
@@ -27,11 +27,12 @@ class HomePage(Page, Dreamer, Seo):
                      'tools.GoogleCalendar', 'home.HomePage']
 
     content_panels = Page.content_panels + [
-        FieldPanel('heading'),
-        FieldPanel('text'),
-        FieldPanel('buttonLabel'),
-        FieldPanel('buttonUrl'),
-        StreamFieldPanel('body'),
+        MultiFieldPanel([
+            FieldPanel('heading'),
+            FieldPanel('text'),
+            FieldPanel('buttonLabel'),
+            FieldPanel('buttonUrl'),
+        ], "Jumbotron"),
         InlinePanel('carousel_items', label="Carousel images"),
         StreamFieldPanel('end'),
     ]
