@@ -6,14 +6,15 @@ from wagtail.core.blocks import TextBlock, StructBlock
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, StreamFieldPanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import StreamField
-from tools.models import Dreamer, Seo
+from tools.models import Seo, CommonStreamBlock, Item
 
 
-class HomePage(Page, Dreamer, Seo):
+class HomePage(Page, Seo):
     heading = models.CharField(max_length=250, null=True, blank=True)
-    text = RichTextField(blank=True)
+    text = RichTextField(null=True, blank=True)
     buttonLabel = models.CharField(max_length=255, null=True, blank=True)
     buttonUrl = models.URLField(null=True, blank=True)
+    body = StreamField(CommonStreamBlock(required=False), null=True, blank=True)
 
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)
@@ -34,7 +35,7 @@ class HomePage(Page, Dreamer, Seo):
             FieldPanel('buttonUrl'),
         ], "Jumbotron"),
         InlinePanel('carousel_items', label="Carousel images"),
-        StreamFieldPanel('end'),
+        StreamFieldPanel('body', "Main content..."),
     ]
 
     promote_panels = Page.promote_panels + Seo.panels
