@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block content %}
+<h1>{{ page.title }}</h1>
+<p>
+    {{ self.intro|richtext }}
+</p>
+<form action="{% pageurl page %}" method="POST">
+    {% csrf_token %}
+    <!-- {{ form.as_p }} -->
+
+    <!-- {% for element in form %}
+        {{ element }}
+    {% endfor %} -->
+
+    <!-- {% for field in form.visible_fields %}
+    <h1>input type : {{ field.field.widget.input_type }}</h1>
+    
+       <div class="form-group mb-10">
+          {{ field.errors }}
+          {{ field.label_tag }}
+          {% if field.field.widget.input_type %}
+          <input type="{{ field.field.widget.input_type }}" class="form-control"
+                 name="{{ field.name }}" id="{{ field.id_for_label }}"
+                 {% if field.field.required %}required="required"{% endif %}>
+           {% else %}
+           <input type="{{ field.field.widget.input_type }}" class="form-control"
+           name="{{ field.name }}" id="{{ field.id_for_label }}"
+           {% if field.field.required %}required="required"{% endif %}>
+           {% endif %}
+       </div>
+   
+  {% endfor %} -->
+
+    <!-- {% for field in form %}
+    <div class="form-group">
+        <label for="exampleInputPassword1">{{ field.label }}</label>
+        <input type="{{ field.type }}" class="form-control" id="exampleInputPassword1"
+            placeholder="{{ field.help_text|safe  }}">
+    </div>
+    {% endfor %} -->
+
+    <!-- <form action="{% pageurl page %}" method="POST"> -->
+        {% csrf_token %}
+    
+        {% for field in form.visible_fields %}
+        <div class="form-group mb-10">
+            {{ field.errors }}
+            {{ field.label_tag }} <p>- label 1</p>
+            <label for="exampleInputPassword1">{{ field.label }} - label 2</label>
+            {% if field.field.widget.input_type %}
+            <input type="{{ field.field.widget.input_type }}" class="form-control" name="{{ field.name }}"
+                id="{{ field.id_for_label }}" {% if field.field.required %}required="required" {% endif %}>
+            {% else %}
+            <textarea type="{{ field.field.widget.input_type }}" class="form-control" name="{{ field.name }}"
+                id="{{ field.id_for_label }}" {% if field.field.required %}required="required" {% endif %}></textarea>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <input type="submit">
+    <!-- </form> -->
+
+
+    <input type="submit">
+</form>
+
+{% endblock %}
