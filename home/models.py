@@ -25,7 +25,8 @@ class HomePage(Page, Seo):
 
     parent_page_types = ['wagtailcore.page', 'home.HomePage']
     subpage_types = ['tools.Index', 'tools.GoogleMaps',
-                     'tools.GoogleCalendar', 'home.HomePage']
+                     'tools.GoogleCalendar', 'home.HomePage',
+                     'contact.ContactPage']
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
