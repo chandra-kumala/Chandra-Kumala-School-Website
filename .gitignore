@@ -161,3 +161,4 @@ dmypy.json
 tools/
 contact/
 nohup.out
+*.out
