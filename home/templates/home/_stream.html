@@ -1,0 +1,116 @@
+{% load static i18n wagtailcore_tags wagtailimages_tags wagtailembeds_tags %}
+
+{% if block.block_type == 'heading' %}
+    <h2 class="text-center p-4 bg-purple stream_item {{ block.block_type }}">   
+        {{ block.value }}
+    </h2>
+
+{% elif block.block_type == 'paragraph' %}
+    <div class="text-left mx-auto my-4 px-4 stream_item {{ block.block_type }}">
+    {{ block.value }}
+    </div>
+
+{% elif block.block_type == 'image' %}
+    {% image block.value height-200 as photo %}
+    <div class="d-flex justify-content-center stream_item {{ block.block_type }}">
+    <img src="{{ photo.url }}" width="w-auto" height="h-auto" alt="{{ photo.alt }}" class="w-100 stream_item {{ block.block_type }}" />
+    </div>
+    
+{% elif block.block_type == 'embed' %}
+        <div class="youtube d-flex justify-content-center stream_item {{ block.block_type }}">
+            {{ block.value }}
+        </div>
+
+{% elif block.block_type == 'mapurl' %}
+    <div class="google-embed mw-100 d-flex justify-content-center stream_item stream_item {{ block.block_type }}">
+        <iframe src="{{ block.value }}" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+    </div>
+
+{% elif block.block_type == 'calendarurl' %}
+    <div class="google-embed mw-100 d-flex justify-content-center stream_item stream_item {{ block.block_type }}">
+        <iframe src="{{ block.value }}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+    </div>
+
+{% elif block.block_type == 'testimonial' %}
+    <div class="card mx-auto my-3 text-center stream_item {{ block.block_type }}" style="max-width: 540px;">
+        <div class="row no-gutters {% if block.value.test_reversed %} flex-md-row-reverse {% else %} flex-md-row {% endif %}">
+          <div class="col-sm-4 mx-auto w-50 w-sm-100">
+            {% image block.value.test_pic height-200 as photo %}
+            <img src="{{ photo.url }}" class="card-img" alt="{{ photo.alt }}">
+          </div>
+          <div class="col-sm-8 align-self-center">
+            <div class="card-body">
+                <div class="d-flex">
+                    <span class="text-dark"><i class="fas fa-quote-left fa-2x"></i></span>
+                    <p class="card-text">{{ block.value.test_quote }}</p>
+                    <span class="align-self-end mb-2 text-dark"><i class="fas fa-quote-right fa-2x"></i></span>
+                </div>
+              <h5 class="card-title m-0 signature text-dark">{{ block.value.test_name }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+{% elif block.block_type == 'buttonLink' %}
+    <div class="row justify-content-center my-3 stream_item {{ block.block_type }}">
+        <a class=" btn btn-primary btn-lg" href="{{ block.value.link }}"
+        role="button">{{ block.value.text }}</a>
+    </div>
+
+{% elif block.block_type == 'carousel' %}
+
+        {% if block.value %}
+        <div class="carousel-embed stream_item {{ block.block_type }}">
+            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                {% if block.value|length > 1 %}
+                <ol class="carousel-indicators">
+                    {% for carousel_item in block.value %}
+                    <li data-target="#carousel" data-slide-to="{{ forloop.counter0 }}"{% if forloop.first %} class="active"{% endif %}></li>
+                  {% endfor %}
+                </ol>
+                {% endif %}
+
+                <div class="carousel-inner rounded">
+                    {% for item in block.value %}
+                    <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                        {% image item.image fill-1080x600 class="d-block img-fluid" alt="..." %}
+                        {% if item.title or item.caption %}
+                        <div class="carousel-caption h-75">
+                            <h2 class="display-4 mw-80 bg-purple corners-oval">{{ item.title }}</h2 class="display-4">
+                            <p class="d-none d-sm-block">{{ item.caption }}</p class="carousel-caption h-75 d-none d-md-block">
+                            {% if item.link %}
+                            <a href="{{ item.link }}" class="btn btn-primary d-none d-md-block">{{ item.button }}</a class="carousel-caption h-75 d-none d-md-block">
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+        
+                </div>
+                {% if block.value|length > 1 %}
+                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+
+{% elif block.block_type == 'jumbotron' %}
+{% image block.value.background height-200 as photo %}
+    <div class="jumbotron jumbotron-fluid rounded mb-0 stream_item {{ block.value.classes }} {{ block.block_type }}" style="background-image: url('{{ photo.url }}'); background-size: cover;">
+        <div class="container text-center">
+            <h1 class="display-4">{{ block.value.heading }}</h1>
+            {% if block.value.text %}<p class="lead">{{ block.value.text | richtext }}</p>{% endif %}
+            {% if block.value.buttonUrl and block.value.buttonLabel %}<p class="lead"><a class="btn btn-primary btn-lg" href="{{ page.buttonUrl }}" role="button">{{ block.value.buttonLabel }}</a></p>{% endif %}
+        </div>
+    </div>
+
+{% endif %}
