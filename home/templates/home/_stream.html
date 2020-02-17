@@ -106,10 +106,10 @@
 {% elif block.block_type == 'jumbotron' %}
 {% image block.value.background height-200 as photo %}
     <div class="jumbotron jumbotron-fluid rounded mb-0 stream_item {{ block.value.classes }} {{ block.block_type }}" style="background-image: url('{{ photo.url }}'); background-size: cover;">
-        <div class="container text-center">
+        <div class="container text-center p-0">
             <h1 class="display-4">{{ block.value.heading }}</h1>
-            {% if block.value.text %}<p class="lead">{{ block.value.text | richtext }}</p>{% endif %}
-            {% if block.value.buttonUrl and block.value.buttonLabel %}<p class="lead"><a class="btn btn-primary btn-lg" href="{{ page.buttonUrl }}" role="button">{{ block.value.buttonLabel }}</a></p>{% endif %}
+            {% if block.value.text %}<div class="mx-auto w-75">{{ block.value.text | richtext }}</div>{% endif %}
+            {% if block.value.buttonUrl and block.value.buttonLabel %}<a class="btn btn-primary btn-lg" href="{{ page.buttonUrl }}" role="button">{{ block.value.buttonLabel }}</a>{% endif %}
         </div>
     </div>
 
