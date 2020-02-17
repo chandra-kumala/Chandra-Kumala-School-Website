@@ -71,7 +71,7 @@ class HomePage(Page, Seo):
     text = RichTextField(null=True, blank=True)
     buttonLabel = models.CharField(max_length=255, null=True, blank=True)
     buttonUrl = models.URLField(null=True, blank=True)
-    body = StreamField(CommonStreamBlock(required=False), null=True, blank=True)
+    my_stream = StreamField(CommonStreamBlock(required=False), null=True, blank=True)
 
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)
@@ -93,7 +93,7 @@ class HomePage(Page, Seo):
             FieldPanel('buttonUrl'),
         ], "Jumbotron"),
         InlinePanel('carousel_items', label="Carousel images"),
-        StreamFieldPanel('body', "Main content..."),
+        StreamFieldPanel('my_stream', "Main content..."),
     ]
 
     promote_panels = Page.promote_panels + Seo.panels
