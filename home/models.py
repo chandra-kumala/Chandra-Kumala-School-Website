@@ -67,10 +67,6 @@ class CommonStreamBlock(StreamBlock):
         icon = 'cogs'
 
 class HomePage(Page, Seo):
-    heading = models.CharField(max_length=250, null=True, blank=True)
-    text = RichTextField(null=True, blank=True)
-    buttonLabel = models.CharField(max_length=255, null=True, blank=True)
-    buttonUrl = models.URLField(null=True, blank=True)
     my_stream = StreamField(CommonStreamBlock(required=False), null=True, blank=True)
 
     def get_context(self, request):
@@ -86,13 +82,6 @@ class HomePage(Page, Seo):
                      'contact.ContactPage']
 
     content_panels = Page.content_panels + [
-        MultiFieldPanel([
-            FieldPanel('heading'),
-            FieldPanel('text'),
-            FieldPanel('buttonLabel'),
-            FieldPanel('buttonUrl'),
-        ], "Jumbotron"),
-        InlinePanel('carousel_items', label="Carousel images"),
         StreamFieldPanel('my_stream', "Main content..."),
     ]
 
@@ -102,17 +91,3 @@ class HomePage(Page, Seo):
         verbose_name = "Home Page"
         verbose_name_plural = "Home Pages"
 
-
-class Carousel(Orderable):
-    page = ParentalKey(HomePage, on_delete=models.CASCADE,
-                       related_name='carousel_items')
-    title = models.CharField(blank=True, max_length=250)
-    caption = models.CharField(blank=True, max_length=250)
-    image = models.ForeignKey('wagtailimages.Image',  null=True,
-                              blank=True, on_delete=models.CASCADE, related_name='+')
-
-    panels = [
-        FieldPanel('title'),
-        FieldPanel('caption'),
-        ImageChooserPanel('image'),
-    ]
