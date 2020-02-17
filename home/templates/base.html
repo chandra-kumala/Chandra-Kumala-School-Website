@@ -1,0 +1,87 @@
+{% load static wagtailuserbar wagtailimages_tags  %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <title>
+        {% block title %}
+        {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+        {% endblock %}
+        {% block title_suffix %}
+        {% with self.get_site.site_name as site_name %}
+        {% if site_name %}- {{ site_name }}{% endif %}
+        {% endwith %}
+        {% endblock %}
+    </title>
+
+    <!-- Search engine stuff ... -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta property="og:title" content="{{ page.seo_title }}" />
+    <meta name="description" content="{{ page.search_description }}">
+    <meta property="og:description" content="{{ page.search_description }}">
+    <meta property="og:image" content="{% if page.seo_image %}{% image page.seo_image fill-300x300 as img %}{{img.url}}{% else %}{% static 'images/cks/logo-square.png' %}{% endif%}">
+    <meta property="og:url" content="{{ request.META.HTTP_HOST }}" />
+    <meta property="og:type" content="article" />
+
+    {# Global stylesheets #}
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Libre+Baskerville|Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <!-- Icon in browser tab -->
+    <link rel="icon" href="{% static 'images/cks/logo.ico' %}">
+
+    {% block extra_css %}
+    {# Override this in templates to add extra stylesheets #}
+    {% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+    <!-- <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0&appId=2309818166009348&autoLogAppEvents=1"></script> -->
+    {% wagtailuserbar %}
+    {% load social_tags %}
+    <div class="container">
+    {% include 'home/_header.html' %}
+
+    <main>
+
+        {% include 'home/_nav.html' %}
+
+        {% include 'home/_social.html' %}
+
+        {% block content %}{% endblock %}
+
+        {% if page.slug != 'home' %}
+        <!-- Items to display on pages other than Home -->
+        <p><a href="{{ page.get_parent.url }}"><i class="fas fa-step-backward"></i> Return to
+                {{ page.get_parent.title }}</a></p>
+        {% else %}
+        <!-- Items to display on the Home page only -->{% endif %}
+    </main>
+    </div>
+    {% include 'home/_footer.html' %}
+
+    {# Global javascript #}
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'js/all.min.js' %}"></script>
+
+    {% block extra_js %}
+    {# Override this in templates to add extra javascript #}
+    {% endblock %}
+</body>
+
+</html>
