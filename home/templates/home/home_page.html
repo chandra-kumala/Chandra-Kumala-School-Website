@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags wagtailembeds_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+
+{% block content %}
+
+
+{% if page.heading %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+
+        <h1 class="display-4">{{ page.heading }}</h1>
+        {% if page.text %}<p class="lead">{{ page.text | richtext }}</p>{% endif %}
+        {% if page.buttonUrl and page.buttonLabel %}<p class="lead"><a class="btn btn-primary btn-lg"
+                href="{{ page.buttonUrl }}" role="button">{{ page.buttonLabel }}</a></p>{% endif %}
+
+    </div>
+</div>
+{% endif %}
+
+{% if page.carousel_items.all %}
+<!-- <section class="bd-example"> -->
+<div class="carousel-embed">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+
+            {% for item in page.carousel_items.all %}
+            <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                {% image item.image fill-1080x600 class="d-block img-fluid" alt="..." %}
+                {% if item.title or item.caption %}
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>{{ item.title }}</h5>
+                    <p>{{ item.caption }}</p>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+<!-- </section> -->
+{% endif %}
+
+<div class="main-text"></div>
+    <section>
+        {% for block in page.my_stream %}
+        {% include 'home/_stream.html' %}
+        {% endfor %}
+    </section>
+</div>
+
+<!-- <div class="fb-share-button" data-href="http://chandrakumala.pythonanywhere.com/" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fchandrakumala.pythonanywhere.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div> -->
+
+{% endblock content %}
