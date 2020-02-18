@@ -58,7 +58,7 @@
 
         {% if page.slug != 'home' %}
         <!-- Items to display on pages other than Home -->
-        <p><a href="{{ page.get_parent.url }}"><i class="fas fa-step-backward"></i> Return to
+        <p class="text-center"><a href="{{ page.get_parent.url }}"><i class="fas fa-step-backward"></i> Return to
                 {{ page.get_parent.title }}</a></p>
         {% else %}
         <!-- Items to display on the Home page only -->{% endif %}
