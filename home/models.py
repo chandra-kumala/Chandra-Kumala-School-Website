@@ -17,6 +17,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, StreamFieldPanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import StreamField
+from wagtail.snippets.models import register_snippet
 from tools.models import Seo, Item
 
 
@@ -93,6 +94,65 @@ class Seo(models.Model):
         """Abstract Model."""
 
         abstract = True
+
+@register_snippet
+class Google(models.Model):
+    site_tag = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = "Google site code"
+        verbose_name_plural = "Google site code"
+
+    panels = [
+        FieldPanel('site_tag'),
+    ]
+
+    def __str__(self):
+        return self.site_tag
+
+@register_snippet
+class Facebook(models.Model):
+    site_tag = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = "Facebook site code"
+        verbose_name_plural = "Facebook site code"
+
+    panels = [
+        FieldPanel('site_tag'),
+    ]
+
+    def __str__(self):
+        return self.site_tag
+
+@register_snippet
+class Social(models.Model):
+    css = models.CharField("List CSS Classes (eg. text-primary py-0)",
+                           max_length=255, null=True, blank=True)  # eg. text-primary py-0 fa-2x
+    title = models.CharField("Desc on hover (eg. December Bulletin)", max_length=255,
+                             null=True, blank=True)  # eg. Latest School Bulletin
+    link = models.CharField(
+        "Link to resource (eg tel:+62-061-661-6765)", max_length=255, null=True, blank=True)
+    icon = models.CharField(
+        "FA Icon (eg. fas fa-newspaper fa-fw fa-2x)", max_length=255, null=True, blank=True)
+    text = models.CharField("Visible text (eg. Latest School Bulletin)",
+                            max_length=255, null=True, blank=True)  # eg. Decembers Bulletin
+
+    class Meta:
+        verbose_name = "Social Media link and icon"
+        verbose_name_plural = "Social Media links and icons"
+
+
+    panels = [
+        FieldPanel('css'),
+        FieldPanel('link'),
+        FieldPanel('title'),
+        FieldPanel('icon'),
+        FieldPanel('text'),
+    ]
+
+    def __str__(self):
+        return self.text
 
 class HomePage(Page, Seo):
     my_stream = StreamField(CommonStreamBlock(required=False), null=True, blank=True)
