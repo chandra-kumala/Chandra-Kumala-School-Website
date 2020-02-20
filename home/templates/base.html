@@ -1,4 +1,4 @@
-{% load static wagtailuserbar wagtailimages_tags advert_tags %}
+{% load static wagtailuserbar wagtailimages_tags social_tags advert_tags %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -42,7 +42,6 @@
 
 <body class="{% block body_class %}{% endblock %}">
     {% wagtailuserbar %}
-    {% load social_tags %}
 
     {% facebook_site_tag %}
     
