@@ -1,6 +1,7 @@
 from django import template
 from home.models import Google
 from home.models import Facebook
+from home.models import Social
 
 register = template.Library()
 
@@ -27,3 +28,11 @@ def facebook_site_tag(context):
 @register.simple_tag
 def facebook_site_id():
     return Facebook.objects.first().site_tag
+
+# Social snippets
+@register.inclusion_tag('tags/social.html', takes_context=True)
+def social_media_icons(context):
+    return {
+        'social_icons': Social.objects.all(),
+        'request': context['request'],
+    }
