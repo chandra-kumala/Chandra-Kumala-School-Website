@@ -17,7 +17,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, StreamFieldPanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import StreamField
-from tools.models import Seo, CommonStreamBlock, Item
+from tools.models import Seo, Item
 
 
 class CarouselBlock(StructBlock):
