@@ -59,11 +59,9 @@
 
         {% include 'home/_nav.html' %}
         <div class="container">
-            {% if socials %}
-                <section class="d-flex justify-content-center">
-                    {% socials %}
-                </section>
-            {% endif %}
+            <section class="d-flex justify-content-center">
+                {% socials %}
+            </section>
 
             {% block content %}{% endblock %}
 
