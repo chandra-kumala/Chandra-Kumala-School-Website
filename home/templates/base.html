@@ -1,4 +1,4 @@
-{% load static wagtailuserbar wagtailimages_tags  %}
+{% load static wagtailuserbar wagtailimages_tags advert_tags %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -43,6 +43,16 @@
 <body class="{% block body_class %}{% endblock %}">
     {% wagtailuserbar %}
     {% load social_tags %}
+
+    {% facebook_site_tag %}
+    
+    {% google_site_tag %}
+
+    {% if page.google_ad_code %}
+    <!-- Event snippet for CaSE dummy conversion page -->
+    <script>gtag('event', 'conversion', {'send_to': '{% google_site_id %}/{{ page.google_ad_code }}'});</script>
+    {% endif %}
+
     <div class="container">
     {% include 'home/_header.html' %}
 
@@ -50,7 +60,11 @@
 
         {% include 'home/_nav.html' %}
 
-        {% include 'home/_social.html' %}
+        <section class="d-flex justify-content-center">
+            {% socials %}
+        </section
+
+        <!-- include 'home/_social.html' -->
 
         {% block content %}{% endblock %}
 
