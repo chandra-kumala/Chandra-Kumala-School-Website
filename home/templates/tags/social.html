@@ -1,0 +1,3 @@
+{% for social in socials %}
+    <a class="m-3 text-center {{ social.css }}" href="{{ social.link }}" target="_blank" title="{{ social.title}}"><i class="{{ social.icon }}"></i>{% if social.text %}<strong class="d-block">{{ social.text }}</strong>{% endif %}</a>
+{% endfor %}
