@@ -58,23 +58,22 @@
     <main>
 
         {% include 'home/_nav.html' %}
+        <div class="container">
+            <section class="d-flex justify-content-center">
+                {% socials %}
+            </section
 
-        <section class="d-flex justify-content-center">
-            {% socials %}
-        </section
+            {% block content %}{% endblock %}
 
-        <!-- include 'home/_social.html' -->
-
-        {% block content %}{% endblock %}
-
-        {% if page.slug != 'home' %}
-        <!-- Items to display on pages other than Home -->
-        <p class="text-center"><a href="{{ page.get_parent.url }}"><i class="fas fa-step-backward"></i> Return to
-                {{ page.get_parent.title }}</a></p>
-        {% else %}
-        <!-- Items to display on the Home page only -->{% endif %}
+            {% if page.slug != 'home' %}
+            <!-- Items to display on pages other than Home -->
+            <p class="text-center"><a href="{{ page.get_parent.url }}"><i class="fas fa-step-backward"></i> Return to
+                    {{ page.get_parent.title }}</a></p>
+            {% else %}
+            <!-- Items to display on the Home page only -->{% endif %}
+        </div>
     </main>
-    </div>
+
     {% include 'home/_footer.html' %}
 
     {# Global javascript #}
