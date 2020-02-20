@@ -66,6 +66,34 @@ class CommonStreamBlock(StreamBlock):
     class Meta:
         icon = 'cogs'
 
+class Seo(models.Model):
+    ''' Add extra seo fields to pages such as icons. '''
+    google_ad_code = models.CharField(max_length=50, null=True, blank=True)
+    seo_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Optional social media image 300x300px image < 300kb."
+    )
+
+    panels = [
+        MultiFieldPanel(
+            [
+                ImageChooserPanel('seo_image'),
+                FieldPanel('google_ad_code'),
+            ],
+            heading="Additional SEO options ...",
+        )
+
+    ]
+
+    class Meta:
+        """Abstract Model."""
+
+        abstract = True
+
 class HomePage(Page, Seo):
     my_stream = StreamField(CommonStreamBlock(required=False), null=True, blank=True)
 
