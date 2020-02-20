@@ -5,8 +5,8 @@ register = template.Library()
 
 # Social snippets
 @register.inclusion_tag('tags/social.html', takes_context=True)
-def social_media_icons(context):
+def socials(context):
     return {
-        'social_icons': Social.objects.all(),
+        'socials': Social.objects.all(),
         'request': context['request'],
     }
