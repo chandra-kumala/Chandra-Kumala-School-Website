@@ -1,6 +1,6 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.core.models import Page, Orderable
+from wagtail.core.models import Page, Site, Orderable
 from wagtail.core.fields import RichTextField
 from wagtail.core.blocks import (
     URLBlock, 
