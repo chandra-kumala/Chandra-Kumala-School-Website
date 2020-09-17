@@ -53,13 +53,10 @@
     <script>gtag('event', 'conversion', {'send_to': '{% google_site_id %}/{{ page.google_ad_code }}'});</script>
     {% endif %}
 
-    <div class="container">
     {% include 'home/_header.html' %}
-
-    <main>
-
-        {% include 'home/_nav.html' %}
-        <div class="container">
+        <main>
+            <div class="container p-0">
+            {% include 'home/_nav.html' %}
             <section class="d-flex justify-content-center">
                 {% social_media_icons %}
             </section>
@@ -73,8 +70,8 @@
             {% else %}
             <!-- Items to display on the Home page only -->{% endif %}
         </div>
-    </main>
-
+        </main>
+        
     {% include 'home/_footer.html' %}
 
     {# Global javascript #}
