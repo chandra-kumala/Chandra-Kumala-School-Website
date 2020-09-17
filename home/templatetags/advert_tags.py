@@ -34,5 +34,6 @@ def facebook_site_id():
 def social_media_icons(context):
     return {
         'social_icons': Social.objects.all(),
+        'social_icons_reversed': Social.objects.all()[::-1],
         'request': context['request'],
     }
