@@ -1,7 +1,6 @@
 # CKS
 media/
-home/migrations
-home/static
+*/migrations/*
 cks/
 
 # Wagtail
