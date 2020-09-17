@@ -159,7 +159,7 @@ class HomePage(Page, Seo):
 
     def get_context(self, request):
         context = super(HomePage, self).get_context(request)
-        context['menuitems'] = request.site.root_page.get_descendants(
+        context['menuitems'] = Site.find_for_request(request).root_page.get_descendants(
             inclusive=True).live().in_menu()
 
         return context
