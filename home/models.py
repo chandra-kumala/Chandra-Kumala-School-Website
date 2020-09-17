@@ -152,7 +152,10 @@ class Social(models.Model):
     ]
 
     def __str__(self):
-        return self.text
+        if self.text != None:
+            return self.text
+        else:
+            return self.title
 
 class HomePage(Page, Seo):
     my_stream = StreamField(CommonStreamBlock(required=False), null=True, blank=True)
