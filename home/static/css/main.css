@@ -1,0 +1,191 @@
+*{
+    /* font-family: 'Poppins', sans-serif; */
+    font-family: 'Libre Baskerville', serif;
+
+}
+
+
+h1, h2, h3, h5 {
+    /* font-family: 'Abril Fatface', cursive; */
+    font-family: 'Libre Baskerville', serif;
+
+}
+
+.nav-item{
+    font-size: 1.5em;
+}
+
+form {
+    text-align: left;
+}
+
+article{
+    text-align: justify;
+}
+
+section{	
+    margin-left: auto;	
+    margin-right: auto;	
+    padding: 0px;	
+    max-width: 100%;	
+    text-align: justify;	    
+}   
+
+.jumbotron{
+    border-radius: 25px;
+    background: rgba(88, 102, 161, 0.3);
+}
+
+.brand {
+    font-family: 'Libre Baskerville', serif;
+    font-weight: bolder;
+}
+
+.carousel-embed {
+    position: relative;
+    padding-bottom: 55%; 
+    height: 0;
+    overflow: hidden;
+}
+
+.carousel-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+.google-embed {
+    position: relative;
+    padding-bottom: 75%; 
+    height: 0;
+    overflow: hidden;
+}
+
+.google-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+iframe{
+    width: 600px;
+    height: 450px;
+}
+
+.classes {
+    -webkit-columns: 2 200px;
+    -moz-columns: 2 200px;
+    columns: 2 200px;
+}
+
+article {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.btn {
+    margin: 1;
+    padding: 1;
+}
+
+li{
+    list-style-type: disc;
+}
+
+/* Fix bulleted lists and paragraph spacing  */
+
+.rich-text ul {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10%;
+    width: 100%;
+    height: auto;
+    text-align: left;
+}
+
+.rich-text p {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.rich-text img {
+    max-width: 100%;
+    height: auto;
+}
+
+.youtube{
+    max-width: 400px;
+}
+
+/* Fix embedded formatting */
+.responsive-object {
+    position: relative;
+    padding-bottom: 67.5%;
+    height: 0;
+    margin: 10px 0;
+    overflow: hidden;
+  }
+  .responsive-object iframe,
+    .responsive-object object,
+    .responsive-object embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+  }
+
+
+  // Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) { 
+    
+ }
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) { 
+    /* .navbar .navbar-nav {
+        display: inline-block;
+        float: none;
+        vertical-align: top;
+    }
+
+    .navbar .navbar-collapse {
+        text-align: center;
+    }
+     */
+     /* .navbar.center .navbar-inner {
+        text-align: center;
+    }
+    
+    .navbar.center .navbar-inner .nav {
+        display:inline-block;
+        float: none;
+    } */
+ }
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) { 
+    *{
+        font-size: 150%;
+
+    } 
+    .brand {
+        font-size: 150%;
+    }
+    section{
+        max-width: 600px;
+    }
+ }
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) { 
+    section{
+        max-width: 800px;
+    }
+ }
