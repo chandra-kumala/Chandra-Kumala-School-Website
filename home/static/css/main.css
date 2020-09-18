@@ -11,10 +11,6 @@ h1, h2, h3, h5 {
 
 }
 
-.nav-item{
-    font-size: 1.5em;
-}
-
 form {
     text-align: left;
 }
@@ -173,8 +169,10 @@ li{
 @media (max-width: 991.98px) { 
     *{
         font-size: 150%;
-
     } 
+    .nav-item{
+        font-size: 1.5em;
+    }
     .brand {
         font-size: 150%;
     }
