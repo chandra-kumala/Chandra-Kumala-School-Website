@@ -1,10 +1,21 @@
 {% load static i18n wagtailcore_tags wagtailimages_tags wagtailembeds_tags %}
 
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light my-0 d-flex justify-content-between border-bottom border-success">
     <a class="navbar-brand brand" href="#">
         <img class="mx-3 d-none d-block d-sm-none" src="{% static "images/cks/logo-blue.svg" %}" width="55px"
             alt="Logo Image"><span class="d-none d-sm-block">Chandra Kumala School</span>
     </a>
+    <div id="google_translate_element"></div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'id,en,zh', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, includedLanguages: 'id,en,zh'}, 'google_translate_element');
+        }
+    </script>
+    
+
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
