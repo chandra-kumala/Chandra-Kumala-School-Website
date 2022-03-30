@@ -14,6 +14,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 from mysite.settings.settings_secret import *
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
