@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block content %}
+<h1>{{ page.title }}</h1>
+<p>{{ self.intro|richtext }}</p>
+
+<form action="{% pageurl page %}" method="POST">
+    {% csrf_token %}
+
+    {% for field in form.visible_fields %}
+    <div class="form-group mb-10">
+        {{ field.errors }}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+        {% if field.field.widget.input_type %}
+
+        <input type="{% if field.field.widget.input_type == 'number' %}
+                          tel
+                     {% else %}
+                          {{ field.field.widget.input_type }}
+                     {% endif %}" 
+            class="form-control" 
+            name="{{ field.name }}"
+            id="{{ field.id_for_label }}"
+            placeholder="{{ field.help_text }}"
+            {% if field.field.required %}required="required"{% endif %}>
+
+        {% else %}
+
+        <textarea type="{{ field.field.widget.input_type }}" 
+            class="form-control" 
+            name="{{ field.name }}"
+            id="{{ field.id_for_label }}"
+            placeholder="{{ field.help_text|safe  }}"
+            {% if field.field.required %}required="required"{% endif %}
+            ></textarea>
+
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <input type="submit" class="btn btn-success">
+</form>
+
+{% endblock %}
